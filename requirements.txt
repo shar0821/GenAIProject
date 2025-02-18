@@ -3,3 +3,4 @@ openai
 torch
 streamlit
 Flask
+python-dotenv
