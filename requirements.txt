@@ -4,3 +4,6 @@ torch
 streamlit
 Flask
 python-dotenv
+gunicorn
+waitress
+huggingface_hub
