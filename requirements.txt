@@ -7,3 +7,5 @@ python-dotenv
 gunicorn
 waitress
 huggingface_hub
+transformers 
+pillow
