@@ -12,21 +12,6 @@ tokenizer = AutoTokenizer.from_pretrained(model_name)
 device = "cuda" if torch.cuda.is_available() else "cpu"
 model.to(device)
 
-def generate_caption(image) -> str:
-    """
-    Given an image URL, downloads the image and generates a caption.
-    """
-
-    # 1. Preprocess the image
-    pixel_values = feature_extractor(image, return_tensors="pt").pixel_values
-    pixel_values = pixel_values.to(device)
-
-    # 2. Generate caption
-    output_ids = model.generate(pixel_values, max_length=16, num_beams=4)
-    caption = tokenizer.decode(output_ids[0], skip_special_tokens=True)
-
-    return caption
-
 # Example usage
 @app.route("/")
 def hello_world()-> str:
@@ -35,6 +20,12 @@ def hello_world()-> str:
 @app.route("/generate_caption",methods=["POST"])
 def generate_caption()-> str:    # Try a sample image URL
     img=request.files["image"]
-    caption = generate_caption(img)
+    pixel_values = feature_extractor(img, return_tensors="pt").pixel_values
+    pixel_values = pixel_values.to(device)
+
+    # 2. Generate caption
+    output_ids = model.generate(pixel_values, max_length=16, num_beams=4)
+    caption = tokenizer.decode(output_ids[0], skip_special_tokens=True)
+
     status_code=200
     return jsonify({"caption":caption,"status_code":status_code})
