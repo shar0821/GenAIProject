@@ -9,3 +9,4 @@ waitress
 huggingface_hub
 transformers 
 pillow
+selenium

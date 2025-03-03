@@ -29,3 +29,6 @@ def generate_caption()-> str:    # Try a sample image URL
 
     status_code=200
     return jsonify({"caption":caption,"status_code":status_code})
+
+if __name__ == "__main__":
+    app.run(debug=True,port=8051)
